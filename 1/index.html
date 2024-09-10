@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Gallery of Images</title> 
+</head>
+
+<div style="font-size: 18px; font-weight: bold;">
+Here're the results. On the left side it's the baselines using pyramid. On the rigthand side are the results after applying histogram equalization.
+</div>
+
+<div style="font-size: 18px; font-weight: bold;">
+Approach: for the baseline, I used image pyramid with Euclidean Distance. I tried both using Euclidean Distance and NCC for calculating the best displacemnent for each layer, however, I realized later that the image accuracy is not as good when using NCC, which is why I chose Euclidean Distance in the end.
+The search space for each layer is fixed: [-15, 15]. And I applied the best displacemnent I found from the courser layers as the starting point for the new search at finer layers.
+I initially ran into a problem where the image displacemnent can be calculated, but the images for different channels don't quite align up with each other. Later I found out that it was a bug where I accidentally applied the shift for red channel to the green channel.
+Also, initially the images didn't quite line up and there were thick black boarders around the image. This was resolved by cropping each image channel by 10% on each side to remove border so that the score on the border won't be 0 and therefore won't be taken into consideration.
+</div>
+
+<div style="font-size: 18px; font-weight: bold;"> All the images are aligned nicely and have all the colors for baseline and histogram equalization, except for emir.jpg. As we can see from the picture, the red channel is not aligned well enough. I suspected that the number of layers is too big such that it got confused at the beginning. Therefore, I decreased the layer number from the ogininal 6 to 3 and 4 for testing purposes. As we can see from the resulting image, there's no more significant color misalignments.</div>
+
+
+<body>
+    <div style="margin-right: 10px;">Cathedral</div>
+    <div style="display: flex;">
+        <img src="./media/output/cathedral.jpg" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/cathedral.jpg" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+    </div>
+
+    <br> 
+
+    <div style="margin-right: 10px;">Church</div>
+    <div style="display: flex;">
+        <img src="./media/output/church.jpg" alt="church" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/church.jpg" alt="church" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+    </div>
+
+    <br> 
+
+    <div style="margin-right: 10px;">Emir</div>
+    <div style="display: flex;">
+        <img src="./media/output/emir.jpg" alt="emir" style="max-width: 320px; max-height: 280px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/emir.jpg" alt="emir" style="max-width: 320px; max-height: 280px; object-fit: cover;">
+    </div>
+
+    <br> 
+
+    <div style="margin-right: 10px;">Emir processed with 3 (left) and 4 (right) pyramid layers</div>
+    <div style="display: flex;">
+        <img src="./media/output_ec/emir_3.jpg" alt="emir" style="max-width: 320px; max-height: 280px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/emir_4.jpg" alt="emir" style="max-width: 320px; max-height: 280px; object-fit: cover;">
+    </div>
+
+    <br>
+
+    <div style="margin-right: 10px;">Harvesters</div>
+    <div style="display: flex;">
+        <img src="./media/output/harvesters.jpg" alt="harvesters" style="max-width: 500px; max-height: 280px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/harvesters.jpg" alt="harvesters" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+    </div>
+
+    <br> 
+
+    <div style="margin-right: 10px;">Icon</div>
+    <div style="display: flex;">
+        <img src="./media/output/icon.jpg" alt="icon" style="max-width: 310px; max-height: 280px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/icon.jpg" alt="icon" style="max-width: 310px; max-height: 280px; object-fit: cover;">
+    </div>
+
+    <br> 
+
+    <div style="margin-right: 10px;">Lady</div>
+    <div style="display: flex;">
+        <img src="./media/output/lady.jpg" alt="lady" style="max-width: 310px; max-height: 280px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/lady.jpg" alt="lady" style="max-width: 310px; max-height: 280px; object-fit: cover;">
+    </div>
+
+    <br> 
+
+    <div style="margin-right: 10px;">Melons</div>
+    <div style="display: flex;">
+        <img src="./media/output/melons.jpg" alt="melons" style="max-width: 310px; max-height: 280px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/melons.jpg" alt="melons" style="max-width: 310px; max-height: 280px; object-fit: cover;">
+    </div>
+
+    <br> 
+
+    <div style="margin-right: 10px;">Monastery</div>
+    <div style="display: flex;">
+        <img src="./media/output/monastery.jpg" alt="monastery" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/monastery.jpg" alt="monastery" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+    </div>
+
+    <br> 
+
+    <div style="margin-right: 10px;">Onion_church</div>
+    <div style="display: flex;">
+        <img src="./media/output/onion_church.jpg" alt="onion_church" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/onion_church.jpg" alt="onion_church" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+    </div>
+
+    <br> 
+
+    <div style="margin-right: 10px;">Sculpture</div>
+    <div style="display: flex;">
+        <img src="./media/output/sculpture.jpg" alt="sculpture" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/sculpture.jpg" alt="sculpture" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+    </div>
+
+    <br> 
+
+    <div style="margin-right: 10px;">Self_portrait</div>
+    <div style="display: flex;">
+        <img src="./media/output/self_portrait.jpg" alt="self_portrait" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/self_portrait.jpg" alt="self_portrait" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+    </div>
+
+    <br> 
+
+    <div style="margin-right: 10px;">Three_generations</div>
+    <div style="display: flex;">
+        <img src="./media/output/three_generations.jpg" alt="three_generations" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/three_generations.jpg" alt="three_generations" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+    </div>
+
+    <br> 
+
+    <div style="margin-right: 10px;">Tobolsk</div>
+    <div style="display: flex;">
+        <img src="./media/output/tobolsk.jpg" alt="tobolsk" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/tobolsk.jpg" alt="tobolsk" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+    </div>
+
+    <br> 
+
+    <div style="margin-right: 10px;">Train</div>
+    <div style="display: flex;">
+        <img src="./media/output/train.jpg" alt="train" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/train.jpg" alt="train" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+    </div>
+
+
+
+</body>
+
+
+
+
+
+
+</html>
+
+
