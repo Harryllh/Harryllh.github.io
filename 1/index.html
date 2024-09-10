@@ -17,7 +17,7 @@ Also, initially the images didn't quite line up and there were thick black board
 </div>
 
 <div style="font-size: 18px; font-weight: bold;"> 
-Bells & Whistles: I applied histogram equalization, which performs global contrast enhancement by computing a histogram across all channels and making it so all intensities are as equally common as possible. All the images are aligned nicely and have all the colors for baseline and histogram equalization, except for emir.jpg. As we can see from the picture, the red channel is not aligned well enough. I suspected that the number of layers is too big such that it got confused at the beginning. Therefore, I decreased the layer number from the ogininal 6 to 3 and 4 for testing purposes. As we can see from the resulting image, there's no more significant color misalignments.
+Bells & Whistles: I applied histogram equalization, which performs global contrast enhancement by computing a histogram across all channels and making it so all intensities are as equally common as possible. All the images are aligned nicely and have all the colors for baseline and histogram equalization, except for emir.jpg. As we can see from the picture, the red channel is not aligned well enough. I suspected that the number of layers is too big such that it got confused at the beginning. Therefore, I decreased the layer number from the ogininal 6 to 3 and 4 for testing purposes. As we can see from the resulting image, there's no more significant color misalignments. This is the combination that works the best. I've also tried other approaches such as canny edge detector and using SSIM score. Neither of them performs well and are time consuming.
 </div>
 
 
@@ -153,6 +153,34 @@ Bells & Whistles: I applied histogram equalization, which performs global contra
         <img src="./media/output/train.jpg" alt="train" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
         <div style="flex: 1;"></div>
         <img src="./media/output_ec/train.jpg" alt="train" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+    </div>
+
+    <br> 
+    
+    <div style="margin-right: 10px;">Example1</div>
+    <div style="display: flex;">
+        <img src="./media/output/example1.jpg" alt="train" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/example1.jpg" alt="train" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+    </div>
+
+    <br> 
+
+    <div style="margin-right: 10px;">Example2</div>
+    <div style="display: flex;">
+        <img src="./media/output/example2.jpg" alt="train" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/example2.jpg" alt="train" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+    </div>
+
+    <br> 
+
+
+    <div style="margin-right: 10px;">Example3</div>
+    <div style="display: flex;">
+        <img src="./media/output/example3.jpg" alt="train" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/example3.jpg" alt="train" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
     </div>
 
 
