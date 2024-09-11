@@ -6,11 +6,11 @@
 </head>
 
 <div style="font-size: 18px; font-weight: bold;">
-Here're the results. On the left side it's the baselines using pyramid. On the rigthand side are the results after applying histogram equalization.
+Here're the results. On the left side it's the baselines using naive search with SSD. In the middle is the result of applying pyramid search, with ssd for shift for each layer. On the rigthand side are the results after applying histogram equalization.
 </div>
 
 <div style="font-size: 18px; font-weight: bold;">
-Approach: for the baseline, I used image pyramid with Euclidean Distance. I tried both using Euclidean Distance and NCC for calculating the best displacemnent for each layer, however, I realized later that the image accuracy is not as good when using NCC, which is why I chose Euclidean Distance in the end.
+Approach: for the baselines, I used image pyramid with Euclidean Distance. As we can see, using only ssd results in similar performance when we're dealing with the smaller jpg images. However, when it comes to larger images like tif images, pyramid works a lot better, having fewer misalignments. I tried both using Euclidean Distance and NCC for calculating the best displacemnent for each layer, however, I realized later that the image accuracy is not as good when using NCC, which is why I chose Euclidean Distance in the end.
 The search space for each layer is fixed: [-15, 15]. And I applied the best displacemnent I found from the courser layers as the starting point for the new search at finer layers.
 I initially ran into a problem where the image displacemnent can be calculated, but the images for different channels don't quite align up with each other. Later I found out that it was a bug where I accidentally applied the shift for red channel to the green channel.
 Also, initially the images didn't quite line up and there were thick black boarders around the image. This was resolved by cropping each image channel by 10% on each side to remove border so that the score on the border won't be 0 and therefore won't be taken into consideration.
@@ -24,27 +24,45 @@ Bells & Whistles: I applied histogram equalization, which performs global contra
 <body>
     <div style="margin-right: 10px;">Cathedral</div>
     <div style="display: flex;">
-        <img src="./media/output/cathedral.jpg" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <img src="./media/naive_ssd/cathedral.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
         <div style="flex: 1;"></div>
-        <img src="./media/output_ec/cathedral.jpg" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <img src="./media/output/cathedral.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/cathedral.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+    <div style="text-align: flex;">
+        <div >Left: r(12, 3), g(5, 2) </div>
+        <div">Middle and right: r(12, 3), g(5, 2)</div>
     </div>
 
     <br> 
 
     <div style="margin-right: 10px;">Church</div>
     <div style="display: flex;">
-        <img src="./media/output/church.jpg" alt="church" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <img src="./media/naive_ssd/church.jpg" alt="church" style="max-width: 280px; max-height: 200px; object-fit: cover;">
         <div style="flex: 1;"></div>
-        <img src="./media/output_ec/church.jpg" alt="church" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <img src="./media/output/church.jpg" alt="church" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/church.jpg" alt="church" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+    <div style="text-align: flex;">
+        <div >Left: r(30, -5), g(25, 4)</div>
+        <div">Middle and right: r(58, -4), g(25, 4)</div>
     </div>
 
     <br> 
 
     <div style="margin-right: 10px;">Emir</div>
     <div style="display: flex;">
-        <img src="./media/output/emir.jpg" alt="emir" style="max-width: 320px; max-height: 280px; object-fit: cover;">
+        <img src="./media/naive_ssd/emir.jpg" alt="emir" style="max-width: 280px; max-height: 200px; object-fit: cover;">
         <div style="flex: 1;"></div>
-        <img src="./media/output_ec/emir.jpg" alt="emir" style="max-width: 320px; max-height: 280px; object-fit: cover;">
+        <img src="./media/output/emir.jpg" alt="emir" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/emir.jpg" alt="emir" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+    <div style="text-align: flex;">
+        <div >Left: r(30, 30), g(30, 19)</div>
+        <div">Middle and right: r(26, -826), g(46, 24)</div>
     </div>
 
     <br> 
@@ -55,132 +73,218 @@ Bells & Whistles: I applied histogram equalization, which performs global contra
         <div style="flex: 1;"></div>
         <img src="./media/output_ec/emir_4.jpg" alt="emir" style="max-width: 320px; max-height: 280px; object-fit: cover;">
     </div>
+    <div style="text-align: flex;">
+        <div >Left & right: r(103, 55), g(49, 24)</div>
+    </div>
 
     <br>
 
     <div style="margin-right: 10px;">Harvesters</div>
     <div style="display: flex;">
-        <img src="./media/output/harvesters.jpg" alt="harvesters" style="max-width: 500px; max-height: 280px; object-fit: cover;">
+        <img src="./media/naive_ssd/harvesters.jpg" alt="harvesters" style="max-width: 280px; max-height: 200px; object-fit: cover;">
         <div style="flex: 1;"></div>
-        <img src="./media/output_ec/harvesters.jpg" alt="harvesters" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <img src="./media/output/harvesters.jpg" alt="harvesters" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/harvesters.jpg" alt="harvesters" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+    <div style="text-align: flex;">
+        <div >Left: r(30, 4), g(30, 17)</div>
+        <div">Middle and right: r(124, 13), g(59, 16)</div>
     </div>
 
     <br> 
 
     <div style="margin-right: 10px;">Icon</div>
     <div style="display: flex;">
-        <img src="./media/output/icon.jpg" alt="icon" style="max-width: 310px; max-height: 280px; object-fit: cover;">
+        <img src="./media/naive_ssd/icon.jpg" alt="icon" style="max-width: 280px; max-height: 200px; object-fit: cover;">
         <div style="flex: 1;"></div>
-        <img src="./media/output_ec/icon.jpg" alt="icon" style="max-width: 310px; max-height: 280px; object-fit: cover;">
+        <img src="./media/output/icon.jpg" alt="icon" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/icon.jpg" alt="icon" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+    <div style="text-align: flex;">
+        <div >Left: r(30, 23), g(30, 17)</div>
+        <div">Middle and right: r(89, 23), g(41, 17)</div>
     </div>
 
     <br> 
 
     <div style="margin-right: 10px;">Lady</div>
     <div style="display: flex;">
-        <img src="./media/output/lady.jpg" alt="lady" style="max-width: 310px; max-height: 280px; object-fit: cover;">
+        <img src="./media/naive_ssd/lady.jpg" alt="lady" style="max-width: 280px; max-height: 200px; object-fit: cover;">
         <div style="flex: 1;"></div>
-        <img src="./media/output_ec/lady.jpg" alt="lady" style="max-width: 310px; max-height: 280px; object-fit: cover;">
+        <img src="./media/output/lady.jpg" alt="lady" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/lady.jpg" alt="lady" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+    <div style="text-align: flex;">
+        <div >Left: r(30, -6), g(30, 9) </div>
+        <div">Middle and right: r(112, 11), g(51, 9)</div>
     </div>
 
     <br> 
 
     <div style="margin-right: 10px;">Melons</div>
     <div style="display: flex;">
-        <img src="./media/output/melons.jpg" alt="melons" style="max-width: 310px; max-height: 280px; object-fit: cover;">
+        <img src="./media/naive_ssd/melons.jpg" alt="melons" style="max-width: 280px; max-height: 200px; object-fit: cover;">
         <div style="flex: 1;"></div>
-        <img src="./media/output_ec/melons.jpg" alt="melons" style="max-width: 310px; max-height: 280px; object-fit: cover;">
+        <img src="./media/output/melons.jpg" alt="melons" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/melons.jpg" alt="melons" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+    <div style="text-align: flex;">
+        <div >Left: r(30, 11), g(30, 2)</div>
+        <div">Middle and right r(178, 13), g(81, 10):</div>
     </div>
 
     <br> 
 
     <div style="margin-right: 10px;">Monastery</div>
     <div style="display: flex;">
-        <img src="./media/output/monastery.jpg" alt="monastery" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <img src="./media/naive_ssd/monastery.jpg" alt="monastery" style="max-width: 280px; max-height: 200px; object-fit: cover;">
         <div style="flex: 1;"></div>
-        <img src="./media/output_ec/monastery.jpg" alt="monastery" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <img src="./media/output/monastery.jpg" alt="monastery" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/monastery.jpg" alt="monastery" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+    <div style="text-align: flex;">
+        <div >Left: r(3, 2), g(-3, 2)</div>
+        <div">Middle and right: r(3, 2), g(-3, 2)</div>
     </div>
 
     <br> 
 
     <div style="margin-right: 10px;">Onion_church</div>
     <div style="display: flex;">
-        <img src="./media/output/onion_church.jpg" alt="onion_church" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <img src="./media/naive_ssd/onion_church.jpg" alt="onion_church" style="max-width: 280px; max-height: 200px; object-fit: cover;">
         <div style="flex: 1;"></div>
-        <img src="./media/output_ec/onion_church.jpg" alt="onion_church" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <img src="./media/output/onion_church.jpg" alt="onion_church" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/onion_church.jpg" alt="onion_church" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+    <div style="text-align: flex;">
+        <div >Left: r(30, 30), g(30, 29) </div>
+        <div">Middle and right: r(108, 36), g(51, 26)</div>
     </div>
 
     <br> 
 
     <div style="margin-right: 10px;">Sculpture</div>
     <div style="display: flex;">
-        <img src="./media/output/sculpture.jpg" alt="sculpture" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <img src="./media/naive_ssd/sculpture.jpg" alt="sculpture" style="max-width: 280px; max-height: 200px; object-fit: cover;">
         <div style="flex: 1;"></div>
-        <img src="./media/output_ec/sculpture.jpg" alt="sculpture" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <img src="./media/output/sculpture.jpg" alt="sculpture" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/sculpture.jpg" alt="sculpture" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+    <div style="text-align: flex;">
+        <div >Left: r(30, -26), g(30, -11)</div>
+        <div">Middle and right: r(140, -27), g(33, -11)</div>
     </div>
 
     <br> 
 
     <div style="margin-right: 10px;">Self_portrait</div>
     <div style="display: flex;">
-        <img src="./media/output/self_portrait.jpg" alt="self_portrait" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <img src="./media/naive_ssd/self_portrait.jpg" alt="self_portrait" style="max-width: 280px; max-height: 200px; object-fit: cover;">
         <div style="flex: 1;"></div>
-        <img src="./media/output_ec/self_portrait.jpg" alt="self_portrait" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <img src="./media/output/self_portrait.jpg" alt="self_portrait" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/self_portrait.jpg" alt="self_portrait" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+    <div style="text-align: flex;">
+        <div >Left: r(30, 30), g(30, 26)</div>
+        <div">Middle and right: r(176, 37), g(78, 29)</div>
     </div>
 
     <br> 
 
     <div style="margin-right: 10px;">Three_generations</div>
     <div style="display: flex;">
-        <img src="./media/output/three_generations.jpg" alt="three_generations" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <img src="./media/naive_ssd/three_generations.jpg" alt="three_generations" style="max-width: 280px; max-height: 200px; object-fit: cover;">
         <div style="flex: 1;"></div>
-        <img src="./media/output_ec/three_generations.jpg" alt="three_generations" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <img src="./media/output/three_generations.jpg" alt="three_generations" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/three_generations.jpg" alt="three_generations" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+    <div style="text-align: flex;">
+        <div >Left: r(30, 9), g(30, 13)</div>
+        <div">Middle and right: r(112, 11), g(53, 14)</div>
     </div>
 
     <br> 
 
     <div style="margin-right: 10px;">Tobolsk</div>
     <div style="display: flex;">
-        <img src="./media/output/tobolsk.jpg" alt="tobolsk" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <img src="./media/naive_ssd/tobolsk.jpg" alt="tobolsk" style="max-width: 280px; max-height: 200px; object-fit: cover;">
         <div style="flex: 1;"></div>
-        <img src="./media/output_ec/tobolsk.jpg" alt="tobolsk" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <img src="./media/output/tobolsk.jpg" alt="tobolsk" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/tobolsk.jpg" alt="tobolsk" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+    <div style="text-align: flex;">
+        <div >Left: r(6, 3), g(3, 3)</div>
+        <div">Middle and right: r(6, 3), g(3, 3)</div>
     </div>
 
     <br> 
 
     <div style="margin-right: 10px;">Train</div>
     <div style="display: flex;">
-        <img src="./media/output/train.jpg" alt="train" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <img src="./media/naive_ssd/train.jpg" alt="train" style="max-width: 280px; max-height: 200px; object-fit: cover;">
         <div style="flex: 1;"></div>
-        <img src="./media/output_ec/train.jpg" alt="train" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <img src="./media/output/train.jpg" alt="train" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/train.jpg" alt="train" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+    <div style="text-align: flex;">
+        <div >Left: r(30,  30), g(30, 7)</div>
+        <div">Middle and right: r(87, 32), g(42, 5)</div>
     </div>
 
     <br> 
     
     <div style="margin-right: 10px;">Example1</div>
     <div style="display: flex;">
-        <img src="./media/output/example1.jpg" alt="train" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <img src="./media/naive_ssd/example1.jpg" alt="train" style="max-width: 280px; max-height: 280px; object-fit: cover;">
         <div style="flex: 1;"></div>
-        <img src="./media/output_ec/example1.jpg" alt="train" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <img src="./media/output/example1.jpg" alt="train" style="max-width: 280px; max-height: 280px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/example1.jpg" alt="train" style="max-width: 280px; max-height: 280px; object-fit: cover;">
+    </div>
+    <div style="text-align: flex;">
+        <div >Left: r(11, -1), r(5, 0)</div>
+        <div">Middle and right: r(11, -1), g(5, 0)</div>
     </div>
 
     <br> 
 
     <div style="margin-right: 10px;">Example2</div>
     <div style="display: flex;">
-        <img src="./media/output/example2.jpg" alt="train" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <img src="./media/naive_ssd/example2.jpg" alt="train" style="max-width: 280px; max-height: 280px; object-fit: cover;">
         <div style="flex: 1;"></div>
-        <img src="./media/output_ec/example2.jpg" alt="train" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <img src="./media/output/example2.jpg" alt="train" style="max-width: 280px; max-height: 280px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/example2.jpg" alt="train" style="max-width: 280px; max-height: 280px; object-fit: cover;">
+    </div>
+    <div style="text-align: flex;">
+        <div >Left: r(-4, 1), g(-3, 1)</div>
+        <div">Middle and right: r(-4, 1), g(-3, 1)</div>
     </div>
 
     <br> 
 
-
     <div style="margin-right: 10px;">Example3</div>
     <div style="display: flex;">
-        <img src="./media/output/example3.jpg" alt="train" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <img src="./media/naive_ssd/example3.jpg" alt="train" style="max-width: 280px; max-height: 280px; object-fit: cover;">
         <div style="flex: 1;"></div>
-        <img src="./media/output_ec/example3.jpg" alt="train" style="max-width: 1000px; max-height: 280px; object-fit: cover;">
+        <img src="./media/output/example3.jpg" alt="train" style="max-width: 280px; max-height: 280px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/output_ec/example3.jpg" alt="train" style="max-width: 280px; max-height: 280px; object-fit: cover;">
+    </div>
+    <div style="text-align: flex;">
+        <div >Left: r(13, 5), g(6, 3)</div>
+        <div">Middle and right: r(13, 5), g(6, 3)</div>
     </div>
 
 
