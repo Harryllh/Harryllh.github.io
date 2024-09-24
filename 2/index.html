@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Gallery of Images</title> 
+</head>
+
+
+<body>
+    <div style="margin-right: 10px; font-weight: bold;">Finite Difference Operator</div>
+
+    For each partial derivative, a Numpy array was established as a finite difference kernel: dx_kernel = np.array([[1, -1]]) for the x-direction and dy_kernel = np.array([[1], [-1]]) for the y-direction. These kernels were then used to convolve with the original image via scipy.signal.convolve2d, setting the mode to 'same', to generate images of the corresponding partial derivatives. The gradient's magnitude at each pixel was calculated using np.sqrt(dx_deriv ** 2 + dy_deriv ** 2), which involves treating the pixel values from both derivative images as components of a gradient vector and computing its L2 norm to determine the final pixel value in the edge image.
+
+    <br> 
+    <br> 
+
+    <div style="display: flex;">
+        <img src="./media/part1/dx1.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part1/dy1.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part1/gradient1.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part1/gradient1_bin.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+
+    <div style="margin-right: 10px; font-weight: bold;">Derivative of Gaussian (DoG) Filter (First Approach)</div>
+    <br> 
+
+    <div style="display: flex;">
+        <img src="./media/part1/dx1_smooth.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part1/dy1_smooth.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part1/gradient1_smooth.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part1/gradient1_bin_smooth.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+
+    Compared to the previous part, these images are smoother and have less noise. The edges are also cleaner and thicker, even with a much lower threshold.
+
+    <br> 
+    <br>     
+
+    <div style="margin-right: 10px; font-weight: bold;">Derivative of Gaussian (DoG) Filter (Second Approach)</div>
+
+    <div style="display: flex;">
+        <img src="./media/part1/dogx.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part1/dogy.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+    <div style="margin-right: 10px; font-weight: bold;">Left: dogx, Right: dogy</div>
+    <br> 
+
+
+    <div style="display: flex;">
+        <img src="./media/part1/dx1_dog.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part1/dy1_dog.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part1/gradient1_dog.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part1/gradient1_bin_dog.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+    These images are the same as ones above.
+
+    <br> 
+    <br> 
+
+
+    <div style="margin-right: 10px; font-weight: bold;">Image "Sharpening"</div>
+    alpha = 2, 4, 8
+
+    <div style="display: flex;">
+        <img src="./media/part2/taj.jpg"" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part2/taj_sharpen.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <img src="./media/part2/taj_sharpen_4.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <img src="./media/part2/taj_sharpen_6.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+    original -> sharpened
+
+    <br> 
+    <br> 
+
+    <div style="display: flex;">
+        <img src="./media/part2/camel.jpg"" style="max-width: 180px; max-height: 130px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part2/camel_sharpen.jpg" style="max-width: 180px; max-height: 130px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part2/camel_sharpen_4.jpg" style="max-width: 180px; max-height: 130px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part2/camel_sharpen_6.jpg" style="max-width: 180px; max-height: 130px; object-fit: cover;">
+    </div>
+    original -> sharpened
+
+    <br> 
+    <br> 
+
+    <div style="display: flex;">
+        <img src="./media/part2/great_wall.jpg"" style="max-width: 180px; max-height: 130px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part2/great_wall_sharpen.jpg"" style="max-width: 180px; max-height: 130px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part2/great_wall_sharpen_4.jpg"" style="max-width: 180px; max-height: 130px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part2/great_wall_sharpen_6.jpg"" style="max-width: 180px; max-height: 130px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+    </div>
+    original -> sharpened
+
+    <br> 
+    <br> 
+
+    <div style="display: flex;">
+        <img src="./media/part2/rdj.jpg"" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part2/rdj_sharpen.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+    original -> sharpened
+    
+    <br>
+
+    <div style="display: flex;">
+        <img src="./media/part2/rdj.jpg"" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part2/rdj_sharpen.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+    blured sharpen -> sharpened blured sharpened 
+    The blurred and then sharpened image appears noisier and contains more artifacts compared to the original, with more pronounced edges. Additionally, many of the fine details from the original image are lost or appear blurrier in the sharpened version.
+
+
+    <br> 
+    <br> 
+
+    <div style="margin-right: 10px; font-weight: bold;">Hybrid Images</div>
+
+    <div style="display: flex;">
+        <img src="./media/part2/gray_gray.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part2/gray_normal.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part2/normal_gray.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part2/normal_normal.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+
+    Bells and Whistles: I enhanced the quality of the hybrid image through color manipulation. I experimented with using the color from both images, just the high-frequency image, and only the low-frequency image. The outcomes for the initial hybrid image set, featuring Derek and Nutmeg, are displayed below. Overall, incorporating colors from both images appears to yield the most satisfactory results, hence all the hybrid images presented above were created using this approach.
+
+    <br> 
+    <br> 
+
+    <div style="display: flex;">
+        <img src="./media/part2/im1_fft.jpg"" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part2/hybrid_fft.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part2/im2_fft.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+    left: im1 fft, middle: hybrid_fft, right: im2 fft
+
+    <br> 
+    <br> 
+
+    <div style="display: flex;">
+        <img src="./media/part2/low_freq_fft.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part2/high_freq_fft.jpg"" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+    left: low frequency, right: high frequency
+
+    <br>
+    <br> 
+
+
+    <div style="display: flex;">
+        <img src="./media/part2/aligned_mona_lisa.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part2/aligned_harry.jpg"" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part2/harry_lisa.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+    Successful. left: low frequency, middle: high frequency, right: hybrid
+
+    <br> 
+    <br> 
+    
+    <div style="display: flex;">
+        <img src="./media/part2/love.jpg" style="max-width: 230px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part2/hate.jpg"" style="max-width: 230px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part2/love_hate.jpg" style="max-width: 230px; max-height: 200px; object-fit: cover;">
+    </div>
+    Successful. left: low frequency, middle: high frequency, right: hybrid
+
+    <br> 
+    <br> 
+
+    <div style="display: flex;">
+        <img src="./media/part2/benz_aligned.jpg" style="max-width: 230px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part2/audi_aligned.jpg"" style="max-width: 230px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part2/bendi.jpg" style="max-width: 230px; max-height: 200px; object-fit: cover;">
+    </div>
+    Failure. I think it failed mainly because of the choisen of the image. Because the two images are just so differnet in terms of geometric shape and there're not a lot of overlaps between them, which makes them very easy to distinguish.
+
+
+    <br> 
+    <br> 
+
+    <div style="margin-right: 10px; font-weight: bold;">Gaussian and Laplacian Stacks</div>
+
+    <div style="display: flex;">
+        <img src="./media/part3/apple_gaussian.jpg" style="max-width: 700px; max-height: 300px; object-fit: cover;">
+    </div>
+    apple gaussian stack
+
+    <div style="display: flex;">
+        <img src="./media/part3/apple_lapacian.jpg" style="max-width: 700px; max-height: 300px; object-fit: cover;">
+    </div>
+    apple lapacian stack
+
+    <div style="display: flex;">
+        <img src="./media/part3/orange_gaussian.jpg" style="max-width: 700px; max-height: 300px; object-fit: cover;">
+    </div>
+    orange gaussian stack
+
+    <div style="display: flex;">
+        <img src="./media/part3/orange_lapacian.jpg" style="max-width: 700px; max-height: 300px; object-fit: cover;">
+    </div>
+    orange lapacian stack
+
+    <div style="display: flex;">
+        <img src="./media/part3/masked_apple.jpg" style="max-width: 700px; max-height: 300px; object-fit: cover;">
+    </div>
+    masked apple lapacian stack
+
+    <div style="display: flex;">
+        <img src="./media/part3/masked_orange.jpg" style="max-width: 700px; max-height: 300px; object-fit: cover;">
+    </div>
+    masked orange lapacian stack
+
+    <div style="display: flex;">
+        <img src="./media/part3/mask.jpg" style="max-width: 700px; max-height: 300px; object-fit: cover;">
+        <img src="./media/part3/oraple.jpg" style="max-width: 700px; max-height: 300px; object-fit: cover;">
+    </div>
+    mask + oraple
+
+    <br> 
+    <br> 
+    <br> 
+    
+    <div style="display: flex;">
+        <img src="./media/part3/berkeley_gaussian.jpg" style="max-width: 700px; max-height: 300px; object-fit: cover;">
+    </div>
+    berkeley gaussian stack
+    
+    
+    <div style="display: flex;">
+        <img src="./media/part3/berkeley_lapacian.jpg" style="max-width: 700px; max-height: 300px; object-fit: cover;">
+    </div>
+    berkeley lapacian stack
+
+    
+    <div style="display: flex;">
+        <img src="./media/part3/stanford_gaussian.jpg" style="max-width: 700px; max-height: 300px; object-fit: cover;">
+    </div>
+    stanford gaussian stack
+
+    
+    <div style="display: flex;">
+        <img src="./media/part3/stanford_lapacian.jpg" style="max-width: 700px; max-height: 300px; object-fit: cover;">
+    </div>
+    stanford lapacian stack
+
+
+    <div style="display: flex;">
+        <img src="./media/part3/stanford_mask.jpg" style="max-width: 300px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part3/berkford.jpg" style="max-width:3700px; max-height: 200px; object-fit: cover;">
+    </div>
+    stanford tower mask + berkford
+
+    <br> 
+    <br> 
+    <br> 
+    John Mayer is my favorite artist. I hope his head can grow on my neck, which is why I chose to blend him and I (Harry).
+
+    <div style="display: flex;">
+        <img src="./media/part3/harry_gaussian.jpg" style="max-width: 700px; max-height: 300px; object-fit: cover;">
+    </div>
+    harry gaussian stack
+
+    <div style="display: flex;">
+        <img src="./media/part3/harry_lapacian.jpg" style="max-width: 700px; max-height: 300px; object-fit: cover;">
+    </div>
+    harry lapacian stack
+
+    <div style="display: flex;">
+        <img src="./media/part3/jm_gaussian.jpg" style="max-width: 700px; max-height: 300px; object-fit: cover;">
+    </div>
+    john mayer gaussina stack
+
+    <div style="display: flex;">
+        <img src="./media/part3/jm_lapacian.jpg" style="max-width: 700px; max-height: 300px; object-fit: cover;">
+    </div>
+    john mayer lapacian stack
+
+    <div style="display: flex;">
+        <img src="./media/part3/jm_mask.jpg" style="max-width: 700px; max-height: 300px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/part3/harrymayer.jpg" style="max-width: 700px; max-height: 300px; object-fit: cover;">
+    </div>
+    john mayer mask + harrymayer
+
+</body>
+
+
+</html>
+
+
