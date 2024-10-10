@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Gallery of Images</title> 
+</head>
+
+
+<body>
+    <div style="margin-right: 10px; font-weight: bold;">Part 1. Defining Correspondences</div>
+    To transform one face into another, it's necessary to establish pairs of matching points on both images, maintaining consistent order. I employed ginput to select these points on an image.
+
+    After obtaining two matching sets of points (one set for each face), we calculate the average of these points and then perform Delaunay triangulation on this average set of key points.
+
+    In total of 45 points are chosen on each face.
+
+
+    <br> 
+    <br> 
+
+    <div style="display: flex;">
+        <img src="./media/george_tri.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/harry_tri.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+    Left: George with trangulation, Right: Me with triangulation
+
+    <br> 
+
+    <div style="margin-right: 10px; font-weight: bold;">Part 2. Computing the "Mid-way Face"</div>
+
+    <div style="display: flex;">
+        <img src="./media/george_small.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/midway.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/me_resized.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+    Left: original George, Middle: mid way face, Right: original Me
+
+    <br> 
+    <div style="margin-right: 10px; font-weight: bold;">Part 3. The Morph Sequence</div>
+
+    link to morph video: https://youtube.com/shorts/vnxRzrhxLcM?feature=share
+    
+
+<br> 
+    <div style="margin-right: 10px; font-weight: bold;">Part 4. The "Mean face" of a population</div>
+
+    Examples of faces morphed into the dataset average shape:
+
+    <div style="display: flex;">
+        <img src="./media/39a.jpg" style="max-width: 300px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/78a.jpg" style="max-width: 300px; max-height: 200px; object-fit: cover;">
+    </div>
+
+    <div style="display: flex;">
+        <img src="./media/81a.jpg" style="max-width: 300px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/97a.jpg" style="max-width: 300px; max-height: 200px; object-fit: cover;">
+    </div>
+
+    <div style="display: flex;">
+        <img src="./media/120a.jpg" style="max-width: 300px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/177a.jpg" style="max-width: 300px; max-height: 200px; object-fit: cover;">
+    </div>
+
+    <br> 
+
+    <div style="display: flex;">
+        <img src="./media/avg_face.jpg" style="max-width: 300px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/me_avg.jpg" style="max-width: 500px; max-height: 200px; object-fit: cover;">
+    </div>
+
+    Left: average face
+    Right1: my face warped into the average geometry
+    Right2: the average face warped into my geometry
+
+    <div style="margin-right: 10px; font-weight: bold;">Part 5. Caricatures: Extrapolating from the mean</div>
+
+    <div style="display: flex;">
+        <img src="./media/alpha-0.5.jpg" style="max-width: 300px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/alpha1.5.jpg" style="max-width: 500px; max-height: 200px; object-fit: cover;">
+    </div>
+    Left: alpha=0.5, Right: alpha=1.5
+
+    <br> 
+    <div style="margin-right: 10px; font-weight: bold;">Bells and Whistles 1 (gender change)</div>
+    Here, I chose to change the gener of me. I used the average face of a Chinese woman to do this.
+
+    <div style="display: flex;">
+        <img src="./media/me_part5.jpg" style="max-width: 300px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/avg_chinese_woman.jpg" style="max-width: 500px; max-height: 200px; object-fit: cover;">
+    </div>
+    Left: me, Right: average Chinese woman
+
+    <div style="display: flex;">
+        <img src="./media/color.jpg" style="max-width: 300px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/girl_me.jpg" style="max-width: 500px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/shape.jpg" style="max-width: 500px; max-height: 200px; object-fit: cover;">
+    </div>
+    Left: morph color only, Middle: morph both shape and appearance, Right: morph shape only.
+
+    <br> 
+    <br> 
+    <div style="margin-right: 10px; font-weight: bold;">Bells and Whistles 2 (PCA)</div>
+
+    Below I showed the first 10 eigen faces of the population
+    <div style="display: flex;">
+        <img src="./media/pca.jpg" style="max-width: 750px; max-height: 700px; object-fit: cover;">
+    </div>
+
+    Using these 10 eigen faces, by selecting random weights to apply to each eigenface and summing these weighted vectors, we can create new faces. Here're 5 examples of them.
+
+    <div style="display: flex;">
+        <img src="./media/random_faces.jpg" style="max-width: 750px; max-height: 700px; object-fit: cover;">
+    </div>
+
+    <br> 
+
+</body>
+
+
+</html>
+
+
