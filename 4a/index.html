@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Gallery of Images</title> 
+</head>
+
+
+<body>
+    <div style="margin-right: 10px; font-weight: bold;">Rectification</div>
+
+    <br> 
+
+    <div style="display: flex;">
+        <img src="./media/mac.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/mac_rec.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+    Left: my black macbook, Right: rectified macbook
+
+    <br> 
+
+    <div style="display: flex;">
+        <img src="./media/bair.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/bair_rec.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+    Left: bair sign, Right: rectified bair sign
+
+    <br> 
+    <br> 
+    
+    <div style="margin-right: 10px; font-weight: bold;">Mosaic</div>
+
+    <br>
+
+    First, I warped the right image towards the center, followed by merging the left image with this central composition. As I combined the images, I expanded the canvas size. For the warping process, I initially applied forward warping to the corners of the images to map them onto a polygon in the plane of the target image. I then used the distance transform for accurate pixel mapping and executed inverse warping on this polygon to interpolate the colors from the source image.
+
+
+    <div style="display: flex;">
+        <img src="./media/left.jpg" style="max-width: 300px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/middle.jpg" style="max-width: 300px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/right.jpg" style="max-width: 300px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/waywest_mosaic.jpg" style="max-width: 300px; max-height: 200px; object-fit: cover;">
+    </div>
+
+    <br> 
+
+    <div style="display: flex;">
+        <img src="./media/library_left.jpg" style="max-width: 300px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/library_middle.jpg" style="max-width: 300px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/library_right.jpg" style="max-width: 300px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/library_mosaic.jpg" style="max-width: 300px; max-height: 200px; object-fit: cover;">
+    </div>
+
+    <br> 
+
+    <div style="display: flex;">
+        <img src="./media/home_left.jpg" style="max-width: 300px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/home_middle.jpg" style="max-width: 300px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/home_right.jpg" style="max-width: 300px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/home_mosaic.jpg" style="max-width: 300px; max-height: 200px; object-fit: cover;">
+    </div>
+
+    
+
+</body>
+
+
+</html>
+
+
