@@ -29,12 +29,14 @@
 
     <br> 
     <br> 
-    
+
     <div style="margin-right: 10px; font-weight: bold;">Mosaic</div>
 
     <br>
 
     First, I warped the right image towards the center, followed by merging the left image with this central composition. As I combined the images, I expanded the canvas size. For the warping process, I initially applied forward warping to the corners of the images to map them onto a polygon in the plane of the target image. I then used the distance transform for accurate pixel mapping and executed inverse warping on this polygon to interpolate the colors from the source image.
+
+    The images follow the following format: left, middle, right, mosaic
 
 
     <div style="display: flex;">
