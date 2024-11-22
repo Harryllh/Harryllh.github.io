@@ -99,11 +99,13 @@
         <img src="./media/1.6.jpg" style="max-width: 600px; max-height: 300px; object-fit: cover;">
     </div>
 
-    I improved the quality of generated images by blending conditional and unconditional noise estimates using CFG, which enhances image detail and relevance to given prompts.
+    I improved the quality of generated images by blending conditional and unconditional noise estimates using CFG. Instead of using a single noise estimate, we compute both a conditional and an unconditional noise estimate, which enhances image detail a little bit and relevance to given prompts.
 
 
     <br> 
     <div style="margin-right: 10px; font-weight: bold;">Part 1.7 Image-to-image Translation</div>
+
+    Here, we use the SDEdit algorithm, starting by noising an original test image slightly and then iteratively denoising it without conditioning to retain similarity to the original. By running the iterative_denoise_cfg function at different starting noise levels—[1, 3, 5, 7, 10, 20] steps—we observe a sequence of edits that progressively resemble the original image more closely.
 
     <div style="display: flex;"></div>
         <img src="./media/1.7_campanile.jpg" style="max-width: 700px; max-height: 500px; object-fit: cover;">
