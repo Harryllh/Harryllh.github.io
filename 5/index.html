@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Gallery of Images</title> 
+</head>
+
+
+<body>
+    <div style="margin-right: 10px; font-weight: bold;">Part A</div>
+
+    <br> 
+
+    <div style="margin-right: 10px; font-weight: bold;">Part 0 Setup</div>
+
+    <br> 
+
+    <div style="display: flex;">
+        <img src="./media/0_10steps.jpg" style="max-width: 600px; max-height: 300px; object-fit: cover;">
+    </div>
+
+    <br> 
+
+    <div style="display: flex;"></div>
+        <img src="./media/0_80steps.jpg" style="max-width: 600px; max-height: 300px; object-fit: cover;">
+    </div>
+
+    As we can see from the image, when the num_inference_steps increases from 10 to 80, the image quality becomes better. When num_inference_steps=10, the image is a bit blurry and unreal. However, when num_inference_steps=80, the image is approaching real quality. Even though some of them are cartoon-like, they all look more like actual existing images.
+    <br>
+    Random seed I'm using: 180.
+
+    <br> 
+    <div style="margin-right: 10px; font-weight: bold;">Part 1.1 Implementing the Forward Process</div>
+
+    <div style="display: flex;">
+        <img src="./media/1.1_250.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/1.1_500.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/1.1_750.jpg" style="max-width: 280px; max-height: 200px; object-fit: cover;">
+    </div>
+
+    I wrote a function to simulate the forward process of a diffusion model, where clean images are progressively noised. I used the formula provided on the spec to add noise to an image at various timesteps, using the provided alphas_cumprod variable for noise scaling. As we can see, the image becomes more and more noisy when the timestep number increases.
+
+    <br> 
+    <div style="margin-right: 10px; font-weight: bold;">Part 1.2 Classical Denoising</div>
+
+    <div style="display: flex;">
+        <img src="./media/1.2_250.jpg" style="max-width: 600px; max-height: 200px; object-fit: cover;">
+    </div>
+
+    <div style="display: flex;">
+        <img src="./media/1.2_500.jpg" style="max-width: 600px; max-height: 200px; object-fit: cover;">
+    </div>
+
+    <div style="display: flex;">
+        <img src="./media/1.2_700.jpg" style="max-width: 600px; max-height: 200px; object-fit: cover;">
+    </div>
+
+    I used Gaussian blur to attempt noise removal from images that were noised in the previous step. This demonstrated the challenges of reversing diffusion-based noise without advanced models. As we can see, the classical denoising method doesn't work that well; the outcome image is usually noisy.
+
+    <br> 
+    <div style="margin-right: 10px; font-weight: bold;">Part 1.3 One-Step Denoising</div>
+
+    <div style="display: flex;"></div>
+        <img src="./media/1.3_250.jpg" style="max-width: 600px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/1.3_500.jpg" style="max-width: 600px; max-height: 200px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/1.3_750.jpg" style="max-width: 600px; max-height: 200px; object-fit: cover;">
+    </div>
+
+    I applied a pretrained UNet diffusion model to denoise images by estimating and removing noise. This involved processing noisy images through the model to predict and subtract estimated noise components, conditioned on a text prompt.
+
+
+    <br> 
+    <div style="margin-right: 10px; font-weight: bold;">Part 1.4 Iterative Denoising</div>
+
+    <div style="display: flex;"></div>
+        <img src="./media/1.4.jpg" style="max-width: 800px; max-height: 400px; object-fit: cover;">
+    </div>
+
+    I enhanced the one-step denoising in the previous step by implementing an iterative approach, using a strided timestep strategy to progressively denoise an image starting from near-pure noise. This method more effectively utilized the model's capabilities to refine image quality across several iterations.
+
+    <br> 
+
+    <div style="margin-right: 10px; font-weight: bold;">Part 1.5 Diffusion Model Sampling</div>
+
+    <div style="display: flex;"></div>
+        <img src="./media/1.5.jpg" style="max-width: 600px; max-height: 300px; object-fit: cover;">
+    </div>
+
+    I generated images from scratch by denoising pure noise, using the iterative denoising function I developed earlier. This demonstrated the model's capability to create coherent images from random noise.
+
+    <br> 
+    <div style="margin-right: 10px; font-weight: bold;">Part 1.6 Classifier-Free Guidance (CFG)</div>
+
+    <div style="display: flex;"></div>
+        <img src="./media/1.6.jpg" style="max-width: 600px; max-height: 300px; object-fit: cover;">
+    </div>
+
+    I improved the quality of generated images by blending conditional and unconditional noise estimates using CFG, which enhances image detail and relevance to given prompts.
+
+
+    <br> 
+    <div style="margin-right: 10px; font-weight: bold;">Part 1.7 Image-to-image Translation</div>
+
+    <div style="display: flex;"></div>
+        <img src="./media/1.7_campanile.jpg" style="max-width: 700px; max-height: 500px; object-fit: cover;">
+    </div>
+
+    <div style="display: flex;"></div>
+        <img src="./media/1.7_rdj.jpg" style="max-width: 700px; max-height: 500px; object-fit: cover;">
+    </div>
+
+    <div style="display: flex;"></div>
+        <img src="./media/1.7_orange.jpg" style="max-width: 700px; max-height: 500px; object-fit: cover;">
+    </div>
+
+    <br> 
+    <div style="margin-right: 10px; font-weight: bold;">Part 1.7.1 Editing Hand-Drawn and Web Images</div>
+
+    Here I provide 2 hand drawn images: one about a girl and another about a tree with some grass. As we can see from the denoising process, as i_start becomes larger, the higher quality it is for the image and the image gradually looks like the original image. The web image provided is a mickey mouse. As we can see, this has similar effect for image that's not in real life.
+
+    <div style="display: flex;"></div>
+        <img src="./media/1.7.1_hand1.jpg" style="max-width: 200px; max-height: 200px; object-fit: cover;">
+    </div>
+    Girl
+
+    <div style="display: flex;"></div>
+        <img src="./media/1.7.1_gen1.jpg" style="max-width: 800px; max-height: 500px; object-fit: cover;">
+    </div>
+
+    <div style="display: flex;"></div>
+        <img src="./media/1.7.1_hand2.jpg" style="max-width: 200px; max-height: 200px; object-fit: cover;">
+    </div>
+    Tree with grass
+
+    <div style="display: flex;"></div>
+        <img src="./media/1.7.1_gen2.jpg" style="max-width: 800px; max-height: 500px; object-fit: cover;">
+    </div>
+
+    <div style="display: flex;"></div>
+        <img src="./media/1.7.1_web2.jpg" style="max-width: 800px; max-height: 500px; object-fit: cover;">
+    </div>
+    Mickey mouse
+
+    <br> 
+    <br> 
+    <div style="margin-right: 10px; font-weight: bold;">Part 1.7.2 Impainting</div>
+
+    I used a binary mask to identify the regions to be inpainted—where the mask was set to 1—and maintained the original parts of the image where the mask was 0. To perform the inpainting, I added noise to the entire image and selectively denoised the specified areas through an iterative process, blending the newly generated content with the existing one using the diffusion model. This approach utilized a pretrained UNet to accurately predict and subtract noise, ensuring that the edits integrated seamlessly with the untouched parts of the image, resulting in a natural and coherent visual output. Then for the two other images, I created separate masks and apply the above procedure to these two images.
+
+    <div style="display: flex;"></div>
+        <img src="./media/1.7.2_masks.jpg" style="max-width: 800px; max-height: 500px; object-fit: cover;">
+    </div>
+
+    <div style="display: flex;"></div>
+        <img src="./media/1.7.2_impainted.jpg" style="max-width: 250px; max-height: 500px; object-fit: cover;">
+    </div>
+
+    <div style="display: flex;"></div>
+        <img src="./media/1.7.2_jm.jpg" style="max-width: 800px; max-height: 500px; object-fit: cover;">
+    </div>
+    John Mayer
+
+    <div style="display: flex;"></div>
+        <img src="./media/1.7.2_rdj.jpg" style="max-width: 800px; max-height: 500px; object-fit: cover;">
+    </div>
+    RDJ
+
+    <br> 
+    <div style="margin-right: 10px; font-weight: bold;">Part 1.7.3 Text-Conditional Image-to-image Translation</div>
+
+    I applied controlled noise to an original image and then iteratively denoising it, guided by text prompts that describe the desired transformation. By using precomputed text embeddings as prompts, I could steer the image transformations to align with specific themes or appearances.
+
+    <div style="display: flex;"></div>
+        <img src="./media/1.7.3_rocket.jpg" style="max-width: 800px; max-height: 500px; object-fit: cover;">
+    </div>
+    prompt: "a rocket ship"
+
+    <div style="display: flex;"></div>
+        <img src="./media/1.7.3_rdj.jpg" style="max-width: 800px; max-height: 500px; object-fit: cover;">
+    </div>
+    prompt: 'a photo of a man'
+
+    <div style="display: flex;"></div>
+        <img src="./media/1.7.3_orange.jpg" style="max-width: 800px; max-height: 500px; object-fit: cover;">
+    </div>
+    prompt: "a rocket ship"
+
+    <br> 
+    <br> 
+    <div style="margin-right: 10px; font-weight: bold;">Part 1.8 Visual Anagrams</div>
+
+    I denoised an image with the prompt "an oil painting of an old man" to obtain a noise estimate. Simultaneously, I'll flip the image, denoise it with the prompt "an oil painting of people around a campfire," and get a second noise estimate. After flipping the second estimate back, I'll average the two noise estimates and execute a reverse/denoising diffusion step with this averaged noise estimate to finalize the illusion. Besides using these two prompts, I also used other prompts to create different visual anagrams.
+
+    <div style="display: flex;"></div>
+        <img src="./media/1.8_oldman.jpg" style="max-width: 300px; max-height: 300px; object-fit: cover;">
+    </div>
+    Visual Anagrams between "an oil painting of an old man" and "an oil painting of people around a campfire".
+
+    <br> 
+
+    <div style="display: flex;"></div>
+        <img src="./media/1.8_2.jpg" style="max-width: 300px; max-height: 300px; object-fit: cover;">
+    </div>
+    Visual Anagrams between 'an oil painting of people around a campfire' and 'a photo of a dog'.
+
+    <br> 
+
+    <div style="display: flex;"></div>
+        <img src="./media/1.8_3.jpg" style="max-width: 300px; max-height: 300px; object-fit: cover;">
+    </div>
+    Visual Anagrams between 'a photo of a dog' and 'a man wearing a hat'.
+
+    <br> 
+    <br> 
+    <div style="margin-right: 10px; font-weight: bold;">Part 1.9 Hybrid Images</div>
+
+    I used UNet with two different text prompts to generate noise estimates. I then combine the low frequencies from one estimate with the high frequencies from the other using a low pass and a high pass filter. The process might need several iterations to achieve optimal results, especially with specific settings for Gaussian blur.
+
+    <div style="display: flex;"></div>
+        <img src="./media/1.9_skeleton.jpg" style="max-width: 300px; max-height: 300px; object-fit: cover;">
+    </div>
+    Hybrid image between 'a lithograph of a skull' and 'a lithograph of waterfalls'.
+
+    <br> 
+
+    <div style="display: flex;"></div>
+        <img src="./media/1.9_pencil.jpg" style="max-width: 300px; max-height: 300px; object-fit: cover;">
+    </div>
+    Hybrid image between "a pencil" and "a rocket ship".
+
+    <br> 
+
+    <div style="display: flex;"></div>
+        <img src="./media/1.9_3.jpg" style="max-width: 300px; max-height: 300px; object-fit: cover;">
+    </div>
+
+    Hybrid image between 'a lithograph of a skull' and 'an oil painting of people around a campfire'.
+
+    <br> 
+    <br> 
+    <div style="margin-right: 10px; font-weight: bold;">Part B</div>
+    <br> 
+
+    <div style="margin-right: 10px; font-weight: bold;">Part 1 Training a Single-Step Denoising UNet</div>
+    <br> 
+
+    <div style="margin-right: 10px; font-weight: bold;">Part 1.2 Using the UNet to Train a Denoiser</div>
+
+    <div style="display: flex;"></div>
+        <img src="./media/2.2.jpg" style="max-width: 500px; max-height: 500px; object-fit: cover;">
+    </div>
+    Varying levels of noise on MNIST digits
+
+    <br>
+    <div style="margin-right: 10px; font-weight: bold;">Part 1.2 Using the UNet to Train a Denoiser</div>
+
+    I trained a denoiser model using the MNIST dataset, focusing specifically on the training set which I shuffled before loading. I added noise to the image batches dynamically during each fetch from the dataloader, allowing the model to see new noised images each epoch to enhance generalization. The training was conducted over 5 epochs with a batch size of 256. For the model, I used the UNet architecture with a hidden dimension of 128, and I employed the Adam optimizer with a learning rate of 1e-4. As we can see, as the number of epoch goes higher, the result after denoising is getting better, with less noise and clearer shape.
+
+    <div style="display: flex;"></div>
+        <img src="./media/2.2.1_3.jpg" style="max-width: 500px; max-height: 500px; object-fit: cover;">
+    </div>
+
+    <div style="display: flex;"></div>
+        <img src="./media/2.2.1_1.jpg" style="max-width: 500px; max-height: 500px; object-fit: cover;">
+    </div>
+    <br>
+
+    <div style="display: flex;"></div>
+        <img src="./media/2.2.1_2.jpg" style="max-width: 500px; max-height: 500px; object-fit: cover;">
+    </div>
+
+    <div style="margin-right: 10px; font-weight: bold;">Part 1.2.2 Out-of-Distribution Testing</div>
+    <br>
+
+    When applying denoiser on different sigma values that it wasn't trained for (0.5), we can see that it works decently, only getting slighly worse result when sigma is 0.8 and 1.
+
+    <div style="display: flex;"></div>
+        <img src="./media/2.2.2.jpg" style="max-width: 500px; max-height: 500px; object-fit: cover;">
+    </div>
+    Results on digits from the test set with varying noise levels.
+
+    <br>
+    <br>
+    <div style="margin-right: 10px; font-weight: bold;">Part 2 Training a Diffusion Model</div>
+    <br>
+
+    <div style="margin-right: 10px; font-weight: bold;">Part 2.2 Training the UNet</div>
+    <br>
+
+    I trained a time-conditioned UNet model to predict the noise in images from the MNIST dataset. I used a batch size of 128 and trained the model over 20 epochs, which proved to be more challenging than the initial phase. For each epoch, I dynamically noised the image batches when fetched from the dataloader. I used the Adam optimizer with an initial learning rate of 1e-3 and implemented an exponential learning rate decay with a scheduler to adjust the learning rate after every epoch. The model architecture and the way to inject the conditioning signal t into the UNet were specified in the provided documentation.
+
+    When it comes to sampling, I created an initial random noise tensor and progressively refines this tensor through a series of transformations defined over a specified number of timesteps. Each timestep computes a corrected version of the image by blending the original noise with generated noise elements and adjustments based on the model's outputs. 
+    <div style="display: flex;"></div>
+        <img src="./media/2.3_loss.jpg" style="max-width: 500px; max-height: 500px; object-fit: cover;">
+    </div>
+
+    <br>
+    <div style="margin-right: 10px; font-weight: bold;">Part 2.3 Sampling from the UNet</div>
+    <br>
+
+    <div style="display: flex;">
+        <img src="./media/2.3_1.jpg" style="max-width: 600px; max-height: 300px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/2.3_5.jpg" style="max-width: 600px; max-height: 300px; object-fit: cover;">
+    </div>
+    
+    <div style="display: flex;">
+        <img src="./media/2.3_10.jpg" style="max-width: 600px; max-height: 300px; object-fit: cover;">
+        <div style="flex: 1;"></div>
+        <img src="./media/2.3_15.jpg" style="max-width: 600px; max-height: 300px; object-fit: cover;">
+    </div>
+
+    <div style="display: flex;">
+        <img src="./media/2.3_20.jpg" style="max-width: 600px; max-height: 300px; object-fit: cover;">
+    </div>
+
+    <br>
+    <div style="margin-right: 10px; font-weight: bold;">Part 2.4 Adding Class-Conditioning to UNet</div>
+
+    The training is very similar to the time-conditioned procedure, but the sampling is different. I initialized the sampling process with random noise and then iteratively refines this noise over the specified number of timesteps. At each timestep, it generates an image based on the learned model and conditions, blending noise and learned data to gradually transform the noise into a coherent image. The function also manages the guidance scale to control the influence of the condition during generation. This results in a final tensor representing the generated image and a sequence of intermediate images, captured in a GIF format for visualization of the generative process. The model operates on the specified device, leveraging GPU acceleration if available.
+
+    <div style="display: flex;"></div>
+        <img src="./media/2.4_loss.jpg" style="max-width: 600px; max-height: 300px; object-fit: cover;">
+    </div>
+
+    <div style="display: flex;"></div>
+        <img src="./media/2.4_1.jpg" style="max-width: 600px; max-height: 300px; object-fit: cover;">
+    </div>
+
+    <div style="display: flex;"></div>
+        <img src="./media/2.4_5.jpg" style="max-width: 600px; max-height: 300px; object-fit: cover;">
+    </div>
+
+    <div style="display: flex;"></div>
+        <img src="./media/2.4_10.jpg" style="max-width: 600px; max-height: 300px; object-fit: cover;">
+    </div>
+
+    <div style="display: flex;"></div>
+        <img src="./media/2.4_15.jpg" style="max-width: 600px; max-height: 300px; object-fit: cover;">
+    </div>
+
+    <div style="display: flex;"></div>
+        <img src="./media/2.4_20.jpg" style="max-width: 600px; max-height: 300px; object-fit: cover;">
+    </div>
+
+
+
+
+</body>
+
+
+</html>
+
+
