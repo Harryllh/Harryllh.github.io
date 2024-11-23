@@ -18,12 +18,14 @@
     <div style="display: flex;">
         <img src="./media/0_10steps.jpg" style="max-width: 600px; max-height: 300px; object-fit: cover;">
     </div>
+    num_inference_steps=10
 
     <br> 
 
     <div style="display: flex;"></div>
         <img src="./media/0_80steps.jpg" style="max-width: 600px; max-height: 300px; object-fit: cover;">
     </div>
+    num_inference_steps=80
 
     As we can see from the image, when the num_inference_steps increases from 10 to 80, the image quality becomes better. When num_inference_steps=10, the image is a bit blurry and unreal. However, when num_inference_steps=80, the image is approaching real quality. Even though some of them are cartoon-like, they all look more like actual existing images.
     <br>
@@ -105,7 +107,7 @@
     <br> 
     <div style="margin-right: 10px; font-weight: bold;">Part 1.7 Image-to-image Translation</div>
 
-    Here, we use the SDEdit algorithm, starting by noising an original test image slightly and then iteratively denoising it without conditioning to retain similarity to the original. By running the iterative_denoise_cfg function at different starting noise levels—[1, 3, 5, 7, 10, 20] steps—we observe a sequence of edits that progressively resemble the original image more closely.
+    Here, we use the SDEdit algorithm, starting by noising an original test image slightly and then iteratively denoising it without conditioning to retain similarity to the original. By running the iterative_denoise_cfg function at different starting noise levels—[1, 3, 5, 7, 10, 20] steps—we observe a sequence of edits that progressively resemble the original image more closely. All denoising uses "a high quality photo" as the text embed.
 
     <div style="display: flex;"></div>
         <img src="./media/1.7_campanile.jpg" style="max-width: 700px; max-height: 500px; object-fit: cover;">
